@@ -26,7 +26,7 @@ function getTotalNumberOfBorrows(account, books) {
    return borrowedTotal
 }
 
-function getBooksPossessedByAccount(account, books, authors) { 
+/*function getBooksPossessedByAccount(account, books, authors) { 
   let takenBooks = [];
   books.forEach((book) => {
     if (book.borrows.some((borrower) => {return(borrower.id === account.id && borrower.returned === false)})) {
@@ -40,6 +40,22 @@ function getBooksPossessedByAccount(account, books, authors) {
     return {...book, ...foundAuthor}
     }
   )
+  return result
+}*/
+function getBooksPossessedByAccount(account, books, authors) { 
+  let takenBooks = [];
+  books.forEach((book) => {
+    if (book.borrows.some((borrower) => {return(borrower.id === account.id && borrower.returned === false)})) {
+      takenBooks.push(book)
+    }
+  })
+  let result = takenBooks.reduce((acc, book) => {
+  let foundAuthor = {author: authors.find((auth) => {
+    return auth.id === book.authorId
+    })}
+  acc.push({...book, ...foundAuthor})
+  return acc
+}, [])
   return result
 }
 
