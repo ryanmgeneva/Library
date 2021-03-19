@@ -1,7 +1,7 @@
 // Note: Please do not change the name of the functions. The tests use those names to validate your code.
 
 function findAccountById(accounts, id) {
-  let result = accounts.find((user) => user.id === id)
+  let result = accounts.filter((user) => user.id === id)
   return result
 }
 
@@ -10,14 +10,20 @@ function sortAccountsByLastName(accounts) {
   return result
 }
 
+//Helper Function Example 
+
+function getBorrow (book) {
+  return book.borrows.some((borrower) => {return (borrower.id === account.id)}) 
+}
+
 function getTotalNumberOfBorrows(account, books) {
-  let borrowedTotal = 0;
-    books.forEach((book) => {
-      if (book.borrows.some((borrower) => {return (borrower.id === account.id)}) ) {
-        borrowedTotal ++
-      }
-    })
-    return borrowedTotal
+ let borrowedTotal = 0;
+   books.forEach((book) => {
+     if (getBorrow(book)) {
+       borrowedTotal ++
+     }
+   })
+   return borrowedTotal
 }
 
 function getBooksPossessedByAccount(account, books, authors) { 
